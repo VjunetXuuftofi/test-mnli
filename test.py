@@ -1,7 +1,7 @@
 from sentence_transformers import CrossEncoder
 import json
 # bart-large: 0.4869
-model = CrossEncoder("microsoft/deberta-xxlarge-v2-mnli")
+model = CrossEncoder("microsoft/deberta-v2-xxlarge-mnli")
 correct = 0
 total = 0
 with open("data/test.jsonl", "r") as f:
