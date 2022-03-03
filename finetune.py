@@ -21,7 +21,7 @@ data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 tokenized_data = dataset.map(tokenize)
 
 training_args = TrainingArguments(
-    output_dir="./results",
+    output_dir="/data/uid1804058/models/",
     learning_rate=2e-5,
     per_device_train_batch_size=4,
     per_device_eval_batch_size=4,
