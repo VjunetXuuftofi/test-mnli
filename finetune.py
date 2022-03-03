@@ -13,8 +13,11 @@ tokenizer = AutoTokenizer.from_pretrained('facebook/bart-large-mnli')
 
 # run through model pre-trained on MNLI
 def tokenize(entry):
-    return tokenizer(entry["premise"], entry["hypothesis"] ,truncation_strategy='only_first')
+    return tokenizer(entry["premise"], entry["hypothesis"],truncation_strategy='only_first')
 
+
+def metrics(predictions, labels):
+    return {"accuracy": (predictions == labels).mean()}
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
@@ -27,6 +30,7 @@ training_args = TrainingArguments(
     per_device_eval_batch_size=4,
     num_train_epochs=5,
     weight_decay=0.01,
+    compute_metrics=metrics,
     evaluation_strategy='steps',
     eval_steps=500
 )
