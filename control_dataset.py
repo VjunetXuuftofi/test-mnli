@@ -100,5 +100,9 @@ class ConTRoLDataset(datasets.GeneratorBasedBuilder):
                 yield key, {
                     "premise": data["premise"],
                     "hypothesis": data["hypothesis"],
-                    "label": "" if split == "test" else data["label"]
+                    "label": "" if split == "test" else {
+                        'c': 0,
+                        'n': 1,
+                        'e': 2
+                    }[data["label"]]
                 }
