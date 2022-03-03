@@ -1,6 +1,14 @@
 from sentence_transformers import CrossEncoder
 import json
+from transformers import AutoTokenizer
+
+tokenizer = AutoTokenizer.from_pretrained('facebook/bart-large-mnli')
+
+def tokenize_function(examples):
+    return tokenizer(examples, padding="max_length", truncation=True)
+
 # bart-large: 0.4869
+# deberta-v2-xxlarge-mnli: 0.4608
 model = CrossEncoder("microsoft/deberta-v2-xxlarge-mnli")
 correct = 0
 total = 0
