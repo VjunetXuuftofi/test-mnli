@@ -42,7 +42,7 @@ class ConTRoLDataset(datasets.GeneratorBasedBuilder):
             features=datasets.Features({
                 "premise": datasets.Value("string"),
                 "hypothesis": datasets.Value("string"),
-                "label": datasets.Label(num_classes=3)
+                "label": datasets.ClassLabel(num_classes=3, names=['c', 'n', 'e'])
             }),
             # If there's a common (input, target) tuple from the features, uncomment supervised_keys line below and
             # specify them. They'll be used if as_supervised=True in builder.as_dataset.
