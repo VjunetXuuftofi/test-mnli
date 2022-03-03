@@ -30,7 +30,6 @@ training_args = TrainingArguments(
     per_device_eval_batch_size=4,
     num_train_epochs=5,
     weight_decay=0.01,
-    compute_metrics=metrics,
     evaluation_strategy='steps',
     eval_steps=500
 )
@@ -41,6 +40,7 @@ trainer = Trainer(
     train_dataset=tokenized_data["train"],
     eval_dataset=tokenized_data["validation"],
     tokenizer=tokenizer,
+    compute_metrics=metrics,
     data_collator=data_collator,
 )
 
