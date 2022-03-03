@@ -17,8 +17,8 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
-    print(evalprediction.predictions.shape)
-    print(evalprediction.label_ids.shape)
+    print(evalprediction.predictions[0].shape)
+    print(evalprediction.label_ids[0].shape)
     print(evalprediction.predictions == evalprediction.label_ids)
     return {"accuracy": (evalprediction.predictions == evalprediction.label_ids).mean()}
 
