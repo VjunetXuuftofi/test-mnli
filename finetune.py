@@ -4,7 +4,7 @@ from transformers import TrainingArguments, Trainer
 import json
 from datasets import load_dataset
 
-dataset = load_dataset("data")
+dataset = load_dataset("~/test-mnli/data")
 
 
 nli_model = AutoModelForSequenceClassification.from_pretrained('facebook/bart-large-mnli')
