@@ -13,8 +13,7 @@ tokenizer = AutoTokenizer.from_pretrained('facebook/bart-large-mnli')
 
 # run through model pre-trained on MNLI
 def tokenize(entry):
-    return tokenizer.encode(entry["premise"], entry["hypothesis"], return_tensors='pt',
-                     truncation_strategy='only_first')
+    return tokenizer.encode(entry["premise"], entry["hypothesis"],truncation_strategy='only_first')
 
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
