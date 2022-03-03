@@ -24,7 +24,11 @@ _LICENSE = ""
 # TODO: Add link to the official dataset URLs here
 # The HuggingFace Datasets library doesn't host the datasets but only points to the original files.
 # This can be an arbitrary nested dict/list of URLs (see below in `_split_generators` method)
-_URL = "https://github.com/csitfun/ConTRoL-dataset/archive/refs/heads/main.zip"
+_URLS = {
+    "train": "https://github.com/csitfun/ConTRoL-dataset/raw/main/data/train.jsonl",
+    "dev": "https://github.com/csitfun/ConTRoL-dataset/raw/main/data/dev.jsonl",
+    "test": "https://github.com/csitfun/ConTRoL-dataset/raw/main/data/test.jsonl"
+}
 
 
 # TODO: Name of the dataset usually match the script name with CamelCase instead of snake_case
@@ -62,13 +66,13 @@ class ConTRoLDataset(datasets.GeneratorBasedBuilder):
         # dl_manager is a datasets.download.DownloadManager that can be used to download and extract URLS
         # It can accept any type or nested list/dict and will give back the same structure with the url replaced with path to local files.
         # By default the archives will be extracted and a path to a cached folder where they are extracted is returned instead of the archive
-        data_dir = dl_manager.download_and_extract(_URL)
+        downloaded_files = dl_manager.download_and_extract(_URLS)
         return [
             datasets.SplitGenerator(
                 name=datasets.Split.TRAIN,
                 # These kwargs will be passed to _generate_examples
                 gen_kwargs={
-                    "filepath": os.path.join(data_dir, "data", "train.jsonl"),
+                    "filepath": downloaded_files["train"],
                     "split": "train",
                 },
             ),
@@ -76,7 +80,7 @@ class ConTRoLDataset(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.TEST,
                 # These kwargs will be passed to _generate_examples
                 gen_kwargs={
-                    "filepath": os.path.join(data_dir, "data", "test.jsonl"),
+                    "filepath": downloaded_files["test"],
                     "split": "test"
                 },
             ),
@@ -84,7 +88,7 @@ class ConTRoLDataset(datasets.GeneratorBasedBuilder):
                 name=datasets.Split.VALIDATION,
                 # These kwargs will be passed to _generate_examples
                 gen_kwargs={
-                    "filepath": os.path.join(data_dir, "data", "dev.jsonl"),
+                    "filepath": downloaded_files["dev"],
                     "split": "dev",
                 },
             ),
