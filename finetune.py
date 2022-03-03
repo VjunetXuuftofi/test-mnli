@@ -3,6 +3,7 @@ from transformers import DataCollatorWithPadding
 from transformers import TrainingArguments, Trainer
 import json
 from datasets import load_dataset
+import numpy as np
 
 dataset = load_dataset("control_dataset")
 
@@ -17,10 +18,11 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
-    print(evalprediction.predictions[0].shape)
-    print(evalprediction.label_ids[0].shape)
-    print(evalprediction.predictions == evalprediction.label_ids)
-    return {"accuracy": (evalprediction.predictions == evalprediction.label_ids).mean()}
+    correct = 0
+    for i in range(len(evalprediction.predictions)):
+        if np.argmax(evalprediction.predictions[i]) == evalprediction.label_ids[i]:
+            correct += 1
+    return {"accuracy": correct/len(evalprediction.predictions)}
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
