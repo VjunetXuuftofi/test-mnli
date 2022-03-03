@@ -17,6 +17,7 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
+    print(evalprediction.predictions)
     return {"accuracy": (evalprediction.predictions == evalprediction.label_ids).mean()}
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
@@ -31,7 +32,7 @@ training_args = TrainingArguments(
     num_train_epochs=5,
     weight_decay=0.01,
     evaluation_strategy='steps',
-    eval_steps=500
+    eval_steps=50
 )
 
 trainer = Trainer(
