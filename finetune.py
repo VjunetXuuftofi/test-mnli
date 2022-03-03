@@ -4,7 +4,7 @@ from transformers import TrainingArguments, Trainer
 import json
 from datasets import load_dataset
 
-dataset = load_dataset("control_dataset")
+dataset = load_dataset("control_dataset", split="train")
 
 
 nli_model = AutoModelForSequenceClassification.from_pretrained('facebook/bart-large-mnli')
@@ -13,7 +13,7 @@ tokenizer = AutoTokenizer.from_pretrained('facebook/bart-large-mnli')
 
 # run through model pre-trained on MNLI
 def tokenize(entry):
-    return tokenizer.encode(entry["premise"], entry["hypothesis"],truncation_strategy='only_first')
+    return tokenizer.encode(entry["premise"], entry["hypothesis"] ,truncation_strategy='only_first')
 
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
