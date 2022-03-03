@@ -16,8 +16,8 @@ def tokenize(entry):
     return tokenizer(entry["premise"], entry["hypothesis"],truncation_strategy='only_first')
 
 
-def metrics(predictions, labels):
-    return {"accuracy": (predictions == labels).mean()}
+def metrics(evalprediction):
+    return {"accuracy": (evalprediction.predictions == evalprediction.label_ids).mean()}
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
