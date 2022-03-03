@@ -33,7 +33,7 @@ trainer = Trainer(
     model=nli_model,
     args=training_args,
     train_dataset=tokenized_data["train"],
-    eval_dataset=tokenized_data["val"],
+    eval_dataset=tokenized_data["validation"],
     tokenizer=tokenizer,
     data_collator=data_collator,
 )
