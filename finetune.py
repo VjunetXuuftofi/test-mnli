@@ -18,14 +18,9 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
-    correct = 0.
-    print(evalprediction.predictions)
-    print(evalprediction.predictions[0].shape)
-    print(evalprediction.label_ids)
-    print(evalprediction.label_ids[0].shape)
-    for i in range(len(evalprediction.predictions)):
-        correct += np.sum(np.argmax(evalprediction.predictions[i], axis=0) == evalprediction.label_ids[i])
-    return {"accuracy": correct/len(evalprediction.predictions)}
+    return {
+        "accuracy": np.sum(np.argmax(evalprediction.predictions[0], axis=0) == evalprediction.label_ids)/len(evalprediction.label_ids)
+    }
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
 
@@ -34,8 +29,8 @@ tokenized_data = dataset.map(tokenize)
 training_args = TrainingArguments(
     output_dir="/data/uid1804058/models/",
     learning_rate=2e-5,
-    per_device_train_batch_size=4,
-    per_device_eval_batch_size=4,
+    per_device_train_batch_size=8,
+    per_device_eval_batch_size=8,
     num_train_epochs=5,
     weight_decay=0.01,
     evaluation_strategy='steps',
