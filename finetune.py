@@ -18,6 +18,8 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
+    print(np.argmax(evalprediction.predictions[0], axis=0))
+    print(evalprediction.label_ids)
     return {
         "accuracy": np.sum(np.argmax(evalprediction.predictions[0], axis=0) == evalprediction.label_ids)/len(evalprediction.label_ids)
     }
