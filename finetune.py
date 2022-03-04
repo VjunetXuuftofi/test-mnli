@@ -18,8 +18,6 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
-    print(np.argmax(evalprediction.predictions[0], axis=1))
-    print(evalprediction.label_ids)
     return {
         "accuracy": np.sum(np.argmax(evalprediction.predictions[0], axis=1) == evalprediction.label_ids)/len(evalprediction.label_ids)
     }
@@ -36,7 +34,7 @@ training_args = TrainingArguments(
     num_train_epochs=5,
     weight_decay=0.01,
     evaluation_strategy='steps',
-    eval_steps=50
+    eval_steps=500
 )
 
 trainer = Trainer(
