@@ -18,10 +18,13 @@ def tokenize(entry):
 
 
 def metrics(evalprediction):
-    correct = 0
+    correct = 0.
+    print(evalprediction.predictions)
+    print(evalprediction.predictions[0].shape)
+    print(evalprediction.label_ids)
+    print(evalprediction.label_ids[0].shape)
     for i in range(len(evalprediction.predictions)):
-        if np.argmax(evalprediction.predictions[i]) == evalprediction.label_ids[i]:
-            correct += 1
+        correct += np.sum(np.argmax(evalprediction.predictions[i], axis=0) == evalprediction.label_ids[i])
     return {"accuracy": correct/len(evalprediction.predictions)}
 
 data_collator = DataCollatorWithPadding(tokenizer=tokenizer)
