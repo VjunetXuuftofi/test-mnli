@@ -9,7 +9,7 @@ def tokenize_function(examples):
 
 # bart-large: 0.4869
 # deberta-v2-xxlarge-mnli: 0.4608
-model = CrossEncoder("/data/uid1803058/models/checkpoint-42000", tokenize_function=tokenize_function)
+model = CrossEncoder("/data/uid1803058/models/checkpoint-42000")
 correct = 0
 total = 0
 with open("data/test.jsonl", "r") as f:
