@@ -12,7 +12,7 @@ def tokenize_function(examples):
 model = CrossEncoder("/data/uid1804058/models/checkpoint-42000")
 correct = 0
 total = 0
-with open("data/test.jsonl", "r") as f:
+with open("control_dataset/test.jsonl", "r") as f:
     for line in f:
         data = json.loads(line)
         prediction = model.predict([data["premise"], data["hypothesis"]])
